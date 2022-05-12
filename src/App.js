@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState, useEffect} from 'react'
+import './App.css'
+import SongList from './containers/SongList'
 
 function App() {
+
+  // States
+  const [songList, setSongList] = useState([])
+  const [urlList, setUrlList] = useState(
+      [
+      { url: 'https://itunes.apple.com/gb/rss/topsongs/limit=20/json' }
+      ]
+  )
+
+  // UseEffect
+  useEffect( () => {
+      loadSongs();
+  }, [])
+
+  // Fetch song from API
+  const loadSongs = function(){
+      fetch('https://itunes.apple.com/gb/rss/topsongs/limit=20/json')
+      .then(response => response.json())
+      .then(data => setSongList(data.feed.entry))
+      .catch(error => console.error);
+      }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1> UK Top 20 songs!!!!! </h1>
+      <hr/>
+      <SongList songList = {songList}/>
+    </>
   );
 }
 
-export default App;
+export default App

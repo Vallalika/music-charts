@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+#flex-container {
+  display: flex;
+  padding-bottom: 16px;
+}
+
+.songInfo {
+  margin: 16px;
+}
+
+span {
+  font-weight: bold;
+}
